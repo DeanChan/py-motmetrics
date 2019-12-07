@@ -36,8 +36,10 @@ build_script:
 
 test_script:
   # Try building source wheel and install
-  - ps: Tree dist /F
-  - cmd: pip install dist\motmetrics-*.whl
+  - ps: cmd /r dir .\dist\*.tar.gz /b/s
+  - ps: >-
+      $wheel = cmd /r dir .\dist\*.tar.gz /b/s;
+      cmd /c "pip install --verbose $wheel 2>&1"
 #   - pytest --pyargs motmetrics
 
 # on_success:
