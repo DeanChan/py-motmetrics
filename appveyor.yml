@@ -39,7 +39,8 @@ build_script:
 test_script:
   # Try building source wheel and install
   - ps: Write-Host "stage test_script"
-  - pip install dist/motmetrics-*.whl
+  - ps: Tree .\dist /F
+  - pip install dist/motmetrics-*.tar.gz
 #   - pytest --pyargs motmetrics
 
 # on_success:
