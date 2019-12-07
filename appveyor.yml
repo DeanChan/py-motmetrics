@@ -19,7 +19,7 @@ environment:
       PYTHON_ARCH: "32"
 
 install:
-  - echo "stage: install"
+  - ps: Write-Host "stage: install"
   - set "CONDA_ROOT=%PYTHON%"
   - set "PATH=%CONDA_ROOT%;%CONDA_ROOT%\Scripts;%CONDA_ROOT%\Library\bin;%PATH%"
   - conda config --set always_yes yes
@@ -32,15 +32,16 @@ install:
   - pip install lapsolver
 
 build_script:
-  - echo "stage: build_script"
+  - ps: Write-Host "stage: build_script"
   - python setup.py sdist
   - python setup.py bdist_wheel
 
-# test_script:
-#   # Try building source wheel and install
-#   - ps: >-
-#       $wheel = cmd /r dir .\dist\*.tar.gz /b/s;
-#       pip install --verbose $wheel
+test_script:
+  # Try building source wheel and install
+  - ps: Write-Host "stage: test_script"
+  - ps: >-
+      $wheel = cmd /r dir .\dist\*.tar.gz /b/s;
+      pip install --verbose $wheel
 #   - pytest --pyargs motmetrics
 
 # on_success:
