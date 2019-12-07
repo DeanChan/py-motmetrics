@@ -41,7 +41,8 @@ test_script:
   - ps: Write-Host "stage test_script"
   - ps: >-
       $wheel = cmd /r dir .\dist\*.tar.gz /b/s;
-      pip install --verbose $wheel 2`>`&1
+      Write-Host "wheel $wheel";
+      pip install --verbose $wheel 2>&1
 #   - pytest --pyargs motmetrics
 
 # on_success:
