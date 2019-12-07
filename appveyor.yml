@@ -40,19 +40,19 @@ test_script:
   - ps: >-
       $wheel = cmd /r dir .\dist\*.tar.gz /b/s;
       cmd /c "pip install --verbose $wheel 2>&1"
-#   - pytest --pyargs motmetrics
+  - pytest --pyargs motmetrics
 
-# on_success:
-#   ps: >-
-#     if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
-#       Write-Output ("Deploying to PyPI")
-#       pip install --upgrade twine
-#       # If powershell ever sees anything on stderr it thinks it's a fail.
-#       # So we use cmd to redirect stderr to stdout before PS can see it.
-#       cmd /c 'twine upload --skip-existing dist\* 2>&1'
-#     } else {
-#       Write-Output "Not deploying as this is not a tagged commit or commit on master"
-#     }
+on_success:
+  ps: >-
+    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+      Write-Output ("Deploying to PyPI")
+      pip install --upgrade twine
+      # If powershell ever sees anything on stderr it thinks it's a fail.
+      # So we use cmd to redirect stderr to stdout before PS can see it.
+      cmd /c 'twine upload --skip-existing dist\* 2>&1'
+    } else {
+      Write-Output "Not deploying as this is not a tagged commit or commit on master"
+    }
 
 artifacts:
   - path: "dist\\*.whl"
