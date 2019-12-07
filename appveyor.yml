@@ -19,7 +19,6 @@ environment:
       PYTHON_ARCH: "32"
 
 install:
-  - ps: Write-Host "stage install"
   - set "CONDA_ROOT=%PYTHON%"
   - set "PATH=%CONDA_ROOT%;%CONDA_ROOT%\Scripts;%CONDA_ROOT%\Library\bin;%PATH%"
   - conda config --set always_yes yes
@@ -32,15 +31,13 @@ install:
   - pip install lapsolver
 
 build_script:
-  - ps: Write-Host "stage build_script"
   - python setup.py sdist
   - python setup.py bdist_wheel
 
 test_script:
   # Try building source wheel and install
-  - ps: Write-Host "stage test_script"
   - ps: Tree .\dist /F
-  - pip install dist/motmetrics-*.tar.gz
+  - pip install dist\motmetrics-*.whl
 #   - pytest --pyargs motmetrics
 
 # on_success:
