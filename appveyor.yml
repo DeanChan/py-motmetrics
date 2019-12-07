@@ -37,8 +37,8 @@ build_script:
 test_script:
   # Try building source wheel and install
   - ps: cmd /r dir .\dist\*.tar.gz /b/s
-  - ps: >-
-      $wheel = cmd /r dir .\dist\*.tar.gz /b/s;
+  - ps: |
+      $wheel = cmd /r dir .\dist\*.tar.gz /b/s
       # Redirect stderr.
       cmd /c "pip install --verbose $wheel 2>&1"
   - pytest --pyargs motmetrics
