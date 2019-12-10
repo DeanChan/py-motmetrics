@@ -240,7 +240,10 @@ class MOTAccumulator(object):
     @staticmethod
     def new_event_dataframe():
         """Create a new DataFrame for event tracking."""
-        idx = pd.MultiIndex(levels=[[],[]], labels=[[],[]], names=['FrameId','Event'])
+        # idx = pd.MultiIndex(levels=[[],[]], labels=[[],[]], names=['FrameId','Event'])
+        # /home/dichen/anaconda2/envs/v100_latest_pytorch/lib/python2.7/site-packages/motmetrics/mot.py:243:
+        # FutureWarning: the 'labels' keyword is deprecated, use 'codes' instead
+        idx = pd.MultiIndex(levels=[[],[]], codes=[[],[]], names=['FrameId','Event'])
         cats = pd.Categorical([], categories=['RAW', 'FP', 'MISS', 'SWITCH', 'MATCH'])
         df = pd.DataFrame(
             OrderedDict([

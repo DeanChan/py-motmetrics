@@ -146,7 +146,7 @@ def lsa_solve_lapjv(costs):
 
 def init_standard_solvers():
     import importlib
-    from importlib import util
+    # from importlib import util
     
     global available_solvers, default_solver, solver_map
 
@@ -160,7 +160,8 @@ def init_standard_solvers():
 
     solver_map = dict(solvers)    
     
-    available_solvers = [s[0] for s in solvers if importlib.util.find_spec(s[0]) is not None]
+    # available_solvers = [s[0] for s in solvers if importlib.util.find_spec(s[0]) is not None]
+    available_solvers = ['scipy']
     if len(available_solvers) == 0:
         import warnings
         default_solver = None        
