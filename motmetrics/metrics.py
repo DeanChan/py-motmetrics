@@ -12,6 +12,7 @@ import pandas as pd
 import numpy as np
 import inspect
 import itertools
+from tqdm import tqdm
 
 class MetricsHost:
     """Keeps track of metrics and intra metric dependencies."""
@@ -188,7 +189,7 @@ class MetricsHost:
             dfs += [MOTAccumulator.merge_event_dataframes(dfs)]
             names += ['OVERALL']
 
-        partials = [self.compute(acc, metrics=metrics, name=name) for acc, name in zip(dfs, names)]
+        partials = [self.compute(acc, metrics=metrics, name=name) for acc, name in tqdm(zip(dfs, names), ncols=0)]
         return pd.concat(partials)
 
     def _compute(self, df_map, name, cache, parent=None):
